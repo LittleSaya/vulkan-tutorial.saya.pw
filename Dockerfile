@@ -1,3 +1,14 @@
+FROM debian:stable-slim AS ebook-build
+
+RUN apt-get update && apt-get install -y python3 inkscape texlive-xetex pandoc git
+
+WORKDIR /vulkan
+
+ARG CACHEBUST=1
+RUN git clone --depth 1 --branch main https://github.com/Overv/VulkanTutorial.git .
+
+RUN python3 build_ebook.py
+
 FROM composer:1.7.2 AS composer
 
 FROM php:7-stretch
@@ -32,6 +43,9 @@ COPY daux/ /daux/daux/
 
 ARG CACHEBUST=1
 RUN git clone --depth 1 --branch main https://github.com/Overv/VulkanTutorial.git /build/docs
+
+COPY --from=ebook-build /vulkan/ebook/*.pdf /build/docs/resources/
+COPY --from=ebook-build /vulkan/ebook/*.epub /build/docs/resources/
 
 WORKDIR /build
 
