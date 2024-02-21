@@ -167,7 +167,7 @@ class Template
                     'class' => $node->isHotPath() ? 'Nav__item--active' : '',
                 ];
 
-                $item['href'] = str_replace('en/', '', $item['href']);
+                // $item['href'] = str_replace('en/', '', $item['href']);
 
                 $nav[] = $item;
             } elseif ($node instanceof Directory) {
@@ -192,7 +192,7 @@ class Template
                     $folder['class'] .= ' has-children';
                 }
 
-                $folder['href'] = str_replace('en/', '', $folder['href']);
+                // $folder['href'] = str_replace('en/', '', $folder['href']);
 
                 $nav[] = $folder;
             }
