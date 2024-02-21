@@ -5,7 +5,7 @@
     "variants": {
         "vulkan": {
             "favicon": "<theme_url>img/favicon-blue.png",
-            "css": ["<theme_url>css/theme-blue.min.css"]
+            "css": ["<theme_url>css/theme-blue.min.css", "<theme_url>css/css.css"]
         },
         "green": {
             "favicon": "<theme_url>img/favicon-green.png",

@@ -1,0 +1,25 @@
+.content-area {
+    background-color: black;
+}
+
+.wrapper .columns.content .right-column.content-area .content-page {
+    background-color: rgb(25, 25, 25);
+    color: rgb(225, 225, 225);
+}
+
+.wrapper .columns.content .right-column.content-area .content-page code {
+    background-color: rgb(50, 50, 50);
+    color: rgb(225, 225, 225);
+}
+
+.wrapper .columns.content .right-column.content-area .content-page a code {
+    background-color: rgb(50, 50, 50);
+    color: rgb(225, 225, 225);
+    border-bottom: 2px dotted #a41e22;
+}
+
+.wrapper .columns.content .right-column.content-area .content-page a code:hover {
+    background-color: rgb(225, 225, 225);
+    color: rgb(50, 50, 50);
+    border-bottom: unset;
+}
