@@ -5,3 +5,8 @@ node_modules
 static
 
 /vendor
+
+/composer/*
+!/composer/.gitkeep
+/php/*
+!/php/.gitkeep

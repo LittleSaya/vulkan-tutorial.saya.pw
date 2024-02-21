@@ -1,6 +1,14 @@
-# Build Vulkan tutorial
+# Build Vulkan tutorial (on windows)
 
-	docker build --build-arg CACHEBUST=$(date +%s) -t overv/vulkan-tutorial .
+	Download and extract `PHP 7.1.x` into `php`
+
+	Download `composer 2.2.x LTS` into `composer`
+
+	Run `composer-install.cmd` to install dependencies
+
+	Run `php\php.exe bin\daux serve` to serve
+
+	Run `php\php.exe bin\daux generate` to generate static files
 
 # Daux.io
 
