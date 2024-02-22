@@ -31,6 +31,10 @@ control over this functionality. Another limitation originating from the age of
 these APIs is limited multi-threading support, which can result in a bottleneck
 on the CPU side.
 
+注： tiled rendering 是指将计算机图像在光学空间内分割成规则的网格，其中每一格都分开渲染的技术。
+相比于一次性渲染整帧图像的“立即模式”，这种技术可以降低内存和带宽的消耗，尤其适用于手持低功耗设备。
+tiled rendering 有时也被认为是 sort middle 架构的，因为它在图形管线的中间而不是尾部对几何对象进行排序。（摘自 wiki ）
+
 Vulkan solves these problems by being designed from scratch for modern graphics
 architectures. It reduces driver overhead by allowing programmers to clearly
 specify their intent using a more verbose API, and allows multiple threads to
