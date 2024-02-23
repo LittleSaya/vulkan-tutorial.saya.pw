@@ -60,6 +60,12 @@ hardware and select one or more `VkPhysicalDevice`s to use for operations. You
 can query for properties like VRAM size and device capabilities to select
 desired devices, for example to prefer using dedicated graphics cards.
 
+注： Vulkan 没有全局状态，每个应用的状态都存储在 VkInstance 对象中。
+创建 VkInstance 对象会初始化 Vulkan 库，并允许应用将关于它自己的信息传递至实现。（摘自 Vulkan 标准）
+
+注： Vulkan 分离了物理设备和逻辑设备的概念，一个物理设备通常表示宿主机拥有的一个 Vulkan 的完整实现（不包括 instance-level 的功能），并且物理设备的数量是有限的。
+一个逻辑设备代表了一个 Vulkan 实现的一个实例，每个逻辑设备拥有独立于其他逻辑设备的状态和资源。（摘自 Vulkan 标准）
+
 ### Step 2 - Logical device and queue families
 
 After selecting the right hardware device to use, you need to create a VkDevice
@@ -75,6 +81,10 @@ of queue families could also be used as a distinguishing factor in physical
 device selection. It is possible for a device with Vulkan support to not offer
 any graphics functionality, however all graphics cards with Vulkan support today
 will generally support all queue operations that we're interested in.
+
+注： VkPhysicalDeviceFeatures 详细描述了 Vulkan 实例支持的特性。
+
+注：创建逻辑设备时同时也会创建和设备相关联的队列。
 
 ### Step 3 - Window surface and swap chain
 
@@ -105,6 +115,12 @@ are  double buffering (vsync) and triple buffering. We'll look into these in the
 swap chain creation chapter.
 
 Some platforms allow you to render directly to a display without interacting with any window manager through the `VK_KHR_display` and `VK_KHR_display_swapchain` extensions. These allow you to create a surface that represents the entire screen and could be used to implement your own window manager, for example.
+
+注：在计算机图形学中，一个 swap chain 是一系列虚拟的 framebuffer 。
+其被 GPU 和图形 API 用于帧数稳定、减少卡顿和若干其他用途。
+由于这些好处，许多图形 API 都要求使用 swap chain 。
+swap chain 通常存在于图形内存中，但也可以存在于系统内存中。
+一个有两个 buffer 的 swap chain 是一个 double buffer 。
 
 ### Step 4 - Image views and framebuffers
 
