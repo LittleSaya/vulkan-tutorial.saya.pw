@@ -1,14 +1,11 @@
 # Build Vulkan tutorial (on windows)
 
-	Download and extract `PHP 7.1.x` into `php`
-
-	Download `composer 2.2.x LTS` into `composer`
-
-	Run `composer-install.cmd` to install dependencies
-
-	Run `php\php.exe bin\daux serve` to serve
-
-	Run `php\php.exe bin\daux generate` to generate static files
+- Download and extract `PHP 7.1.x` into `php`, make sure `php.exe` exists at `php\php.exe`
+- Edit `php\php.ini`, enable `php_mbstring` and `php_openssl` extensions
+- Download `composer 2.2.x LTS` into `composer`, make sure `composer.phar` exists at `composer\composer.phar`
+- Run `install.cmd` to install dependencies
+- Run `serve.cmd` to serve
+- Run `generate.cmd` to generate static files
 
 # Daux.io
 
