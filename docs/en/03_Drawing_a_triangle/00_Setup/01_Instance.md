@@ -39,6 +39,11 @@ void createInstance() {
 }
 ```
 
+<p class="my-note">
+注：应用信息里的 engine name 和 engine version 就是市场上的引擎名称和版本，
+比如说虚幻引擎的 engine name 可能是 UE4 ， engine version 可能是 0
+<p>
+
 As mentioned before, many structs in Vulkan require you to explicitly specify
 the type in the `sType` member. This is also one of the many structs with a
 `pNext` member that can point to extension information in the future. We're
@@ -193,6 +198,10 @@ some details about the Vulkan support. As a challenge, try to create a function
 that checks if all of the extensions returned by
 `glfwGetRequiredInstanceExtensions` are included in the supported extensions
 list.
+
+<p class="my-note">
+注：扩展的名称是一个长度最大 VK_MAX_EXTENSION_NAME_SIZE 字节的 UTF-8 字符串，或许能有中文名称的扩展？
+</p>
 
 ## Cleaning up
 

@@ -299,6 +299,16 @@ including the type of operations that are supported and the number of queues
 that can be created based on that family. We need to find at least one queue
 family that supports `VK_QUEUE_GRAPHICS_BIT`.
 
+<p class="my-note">
+注： VkQueueFamilyProperties 包含如下属性：<br />
+<ul class="my-note">
+    <li>queueFlags ： Queue Family 中的 Queue 的能力</li>
+    <li>queueCount ： Queue Family 里有几个 Queue ，每个 Queue Family <b>必须</b> 支持至少一个 Queue</li>
+    <li>timestampValidBits ： 通过 vkCmdWriteTimestamp2 或 vkCmdWriteTimestamp 写入的时间戳的有效位</li>
+    <li>minImageTransferGranularity ：能够支持的 Image 传输操作的最小粒度</li>
+</ul>
+</p>
+
 ```c++
 int i = 0;
 for (const auto& queueFamily : queueFamilies) {

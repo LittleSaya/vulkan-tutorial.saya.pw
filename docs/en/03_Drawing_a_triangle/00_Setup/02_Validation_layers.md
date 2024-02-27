@@ -1,7 +1,7 @@
 ## What are validation layers?
 
 The Vulkan API is designed around the idea of minimal driver overhead and one of
-the manifestations of that goal is that there is very limited error checking in
+the manifestations(现象) of that goal is that there is very limited error checking in
 the API by default. Even mistakes as simple as setting enumerations to incorrect
 values or passing null pointers to required parameters are generally not
 explicitly handled and will simply result in crashes or undefined behavior.
@@ -52,7 +52,13 @@ different drivers by accidentally relying on undefined behavior.
 
 Validation layers can only be used if they have been installed onto the system.
 For example, the LunarG validation layers are only available on PCs with the
-Vulkan SDK installed.
+Vulkan SDK installed. 
+
+<p class="my-note">
+注：现在应该能通过 VK_DRIVER_FILES 和 VK_ADD_DRIVER_FILES 来指定
+Validation Layer 的路径，可能意味着能够在没有安装 Vulkan SDK 的终端用户的 PC
+上运行 Validation Layer 了。（参考 <a href="https://github.com/KhronosGroup/Vulkan-Loader/issues/287" target="_blank">Allow using VK_ICD_FILENAMES in addition to the default search paths</a>
+<p>
 
 There were formerly two different types of validation layers in Vulkan: instance
 and device specific. The idea was that instance layers would only check
