@@ -146,6 +146,12 @@ surface into account when determining the supported capabilities. All of the
 support querying functions have these two as first parameters because they are
 the core components of the swap chain.
 
+<p class="my-note">
+注： Physical Device 使用 Instance 创建， Surface 也使用 Instance 创建，并且
+Physical Device 和 Surface 都可以有多个，所以我们无法提前知道某个 Physical Device
+对某个 Surface 的支持情况。
+</p>
+
 The next step is about querying the supported surface formats. Because this is a
 list of structs, it follows the familiar ritual of 2 function calls:
 
@@ -436,7 +442,7 @@ createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
 ```
 
 The `imageArrayLayers` specifies the amount of layers each image consists of.
-This is always `1` unless you are developing a stereoscopic 3D application. The
+This is always `1` unless you are developing a stereoscopic(立体的) 3D application. The
 `imageUsage` bit field specifies what kind of operations we'll use the images in
 the swap chain for. In this tutorial we're going to render directly to them,
 which means that they're used as color attachment. It is also possible that
@@ -507,7 +513,7 @@ createInfo.clipped = VK_TRUE;
 
 The `presentMode` member speaks for itself. If the `clipped` member is set to
 `VK_TRUE` then that means that we don't care about the color of pixels that are
-obscured, for example because another window is in front of them. Unless you
+obscured(遮蔽), for example because another window is in front of them. Unless you
 really need to be able to read these pixels back and get predictable results,
 you'll get the best performance by enabling clipping.
 
@@ -599,5 +605,11 @@ We now have a set of images that can be drawn onto and can be presented to the
 window. The next chapter will begin to cover how we can set up the images as
 render targets and then we start looking into the actual graphics pipeline and
 drawing commands!
+
+<p class="my-note">
+注： VkImage 表示了一个多用途（ attachments 、 textures ）的多维数组（最多 3 维）。
+VkImage 的使用方式：将其通过 Descriptor Sets 与图形管线或计算管线绑定，或者直接将其指定为某些命令的参数。
+（摘自 Vulkan 标准）
+</p>
 
 [C++ code](/code/06_swap_chain_creation.cpp)

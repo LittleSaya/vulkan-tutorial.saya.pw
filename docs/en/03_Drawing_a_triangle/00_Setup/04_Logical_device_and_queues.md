@@ -168,4 +168,14 @@ With the logical device and queue handles we can now actually start using the
 graphics card to do things! In the next few chapters we'll set up the resources
 to present results to the window system.
 
+<p class="my-note">
+注： vkGetDeviceQueue 接受如下四个参数：
+<ol class="my-note">
+    <li>device ：拥有队列的逻辑设备</li>
+    <li>queueFamilyIndex ：拥有队列的队列族的索引（从物理设备获取）</li>
+    <li>queueIndex ：要获取的队列在队列族中的索引</li>
+    <li>pQueue ：存储队列的对象指针</li>
+</ol>
+<p>
+
 [C++ code](/code/04_logical_device.cpp)

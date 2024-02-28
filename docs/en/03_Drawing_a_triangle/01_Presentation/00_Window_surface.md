@@ -191,6 +191,10 @@ Next, we need to have multiple `VkDeviceQueueCreateInfo` structs to create a
 queue from both families. An elegant way to do that is to create a set of all
 unique queue families that are necessary for the required queues:
 
+<p class="my-note">
+注： Set 可以去重
+</p>
+
 ```c++
 #include <set>
 
