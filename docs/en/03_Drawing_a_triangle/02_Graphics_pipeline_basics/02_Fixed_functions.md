@@ -29,6 +29,15 @@ able (and required) to specify the data at drawing time. This results in a more 
 setup and is very common for things like viewport and scissor state, which would
 result in a more complex setup when being baked into the pipeline state.
 
+<p class="my-note">
+注：除了 Viewport 和 Scissor 以外，还有大量可以设置的动态状态，包括与 Depth 、 Blend 、 Stencil
+和 Cull Mode 相关的设置，以及由 Vulkan 1.3 和其他一些扩展提供的设置。
+</p>
+
+<p class="my-note">
+注： Stencil Buffer 是一个 Mask ，控制图像中的哪些区域被绘制，哪些区域不被绘制。（参考 <a target="_blank" href="https://computergraphics.stackexchange.com/questions/12/what-is-a-stencil-buffer">What is a stencil buffer?</a> ）
+</p>
+
 ## Vertex input
 
 The `VkPipelineVertexInputStateCreateInfo` structure describes the format of the
@@ -230,7 +239,7 @@ the `wideLines` GPU feature.
 
 ```c++
 rasterizer.cullMode = VK_CULL_MODE_BACK_BIT;
-rasterizer.frontFace = VK_FRONT_FACE_CLOCKWISE;
+rasterizer.frontFace = VK_FRONT_FACE_CLOCKWISE; // 顺时针为正面
 ```
 
 The `cullMode` variable determines the type of face culling to use. You can
