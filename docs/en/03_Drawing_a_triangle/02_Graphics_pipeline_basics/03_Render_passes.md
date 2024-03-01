@@ -167,6 +167,11 @@ The following other types of attachments can be referenced by a subpass:
 * `pPreserveAttachments`: Attachments that are not used by this subpass, but for
 which the data must be preserved
 
+<p class="my-note">
+注： VkAttachmentDescription 中的 initialLayout 和 finalLayout 定义了 subpass 开始和结束时的 layout
+VkAttachmentReference 中的 layout 定义了 subpass 执行过程中的 layout 。
+</p>
+
 ## Render pass
 
 Now that the attachment and a basic subpass referencing it have been described,
@@ -209,6 +214,17 @@ void cleanup() {
 
 That was a lot of work, but in the next chapter it all comes together to finally
 create the graphics pipeline object!
+
+<p class="my-note">
+摘自 Vulkan 标准： Render Pass 包含了 Attachment 、 Subpass 和 Subpass 之间的依赖关系，
+并且描述了如何在 Subpass 执行期间内使用 Attachment。
+</p>
+
+<p class="my-note">
+个人理解： Render Pass 包含一个 Attachment 的数组，这个数组包含了所有 Attachment ，
+每一个 Attachment 都有自己的 initial layout 和 final layout ，
+Subpass 只引用这些 Attachment ，在引用的同时指定一个 subpass 执行过程中的 layout 。
+</p>
 
 [C++ code](/code/11_render_passes.cpp) /
 [Vertex shader](/code/09_shader_base.vert) /

@@ -169,7 +169,7 @@ graphics card to do things! In the next few chapters we'll set up the resources
 to present results to the window system.
 
 <p class="my-note">
-注： vkGetDeviceQueue 接受如下四个参数：
+摘自 Vulkan 标准： vkGetDeviceQueue 接受如下四个参数：
 <ol class="my-note">
     <li>device ：拥有队列的逻辑设备</li>
     <li>queueFamilyIndex ：拥有队列的队列族的索引（从物理设备获取）</li>

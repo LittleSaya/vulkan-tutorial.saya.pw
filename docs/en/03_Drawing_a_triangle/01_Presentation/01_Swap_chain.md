@@ -147,7 +147,7 @@ support querying functions have these two as first parameters because they are
 the core components of the swap chain.
 
 <p class="my-note">
-注： Physical Device 使用 Instance 创建， Surface 也使用 Instance 创建，并且
+个人理解： Physical Device 使用 Instance 创建， Surface 也使用 Instance 创建，并且
 Physical Device 和 Surface 都可以有多个，所以我们无法提前知道某个 Physical Device
 对某个 Surface 的支持情况。
 </p>
@@ -607,9 +607,8 @@ render targets and then we start looking into the actual graphics pipeline and
 drawing commands!
 
 <p class="my-note">
-注： VkImage 表示了一个多用途（ attachments 、 textures ）的多维数组（最多 3 维）。
+摘自 Vulkan 标准： VkImage 表示了一个多用途（ attachments 、 textures ）的多维数组（最多 3 维）。
 VkImage 的使用方式：将其通过 Descriptor Sets 与图形管线或计算管线绑定，或者直接将其指定为某些命令的参数。
-（摘自 Vulkan 标准）
 </p>
 
 [C++ code](/code/06_swap_chain_creation.cpp)

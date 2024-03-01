@@ -300,7 +300,7 @@ that can be created based on that family. We need to find at least one queue
 family that supports `VK_QUEUE_GRAPHICS_BIT`.
 
 <p class="my-note">
-注： VkQueueFamilyProperties 包含如下属性：<br />
+摘自 Vulkan 标准： VkQueueFamilyProperties 包含如下属性：<br />
 <ul class="my-note">
     <li>queueFlags ： Queue Family 中的 Queue 的能力</li>
     <li>queueCount ： Queue Family 里有几个 Queue ，每个 Queue Family <b>必须</b> 支持至少一个 Queue</li>

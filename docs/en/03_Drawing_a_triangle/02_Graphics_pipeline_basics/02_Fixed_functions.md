@@ -316,6 +316,10 @@ colorBlendAttachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO; // Optional
 colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD; // Optional
 ```
 
+<p class="my-note">
+个人理解： srcColor 是新输出的颜色， dstColor 是 framebuffer 中已经存在的颜色。
+</p>
+
 This per-framebuffer struct allows you to configure the first way of color
 blending. The operations that will be performed are best demonstrated using the
 following pseudocode:
@@ -431,6 +435,20 @@ void cleanup() {
     ...
 }
 ```
+
+<p class="my-note">
+摘自 Vulkan 标准： Pipeline 通过 Pipeline Layout 访问 Descriptor Sets 。通过将 0 个或多个 Descriptor Set Layout 和
+0 个或多个 Push Constant Range 组合可以得到一个 Pipeline Layout 对象，这个对对象完整地描述了
+Pipeline <b>能够</b> 访问的资源集合。 Pipeline Layout 表示了一个 Descriptor Set 的序列，其中每个都有一个特定的
+Layout 。这个序列确定了 Shader Stage 和 Shader Resource 之间的界面。每一个 Pipeline 都是从 Pipeline Layout 创建的。
+</p>
+
+<p class="my-note">
+注： Descriptor 类似一个指向某种资源的指针，这个资源可以是一个 Buffer 或者是一张图片，
+同时包含其他信息，例如 Buffer 的大小，如果资源是图片的话，还包含 Sampler 的类型。
+把这些指针绑定在一起，就形成了 Descriptor Set 。普通 Windows PC 上的硬件对
+Descriptor Set 的最大数量的支持很有限。（摘自 <a href="https://vkguide.dev/docs/chapter-4/descriptors/">Vulkan Guide: Descriptor Sets</a> ）
+</p>
 
 ## Conclusion
 

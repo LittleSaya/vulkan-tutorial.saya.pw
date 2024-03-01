@@ -32,9 +32,9 @@ these APIs is limited multi-threading support, which can result in a bottleneck
 on the CPU side.
 
 <p class="my-note">
-注： tiled rendering 是指将计算机图像在光学空间内分割成规则的网格，其中每一格都分开渲染的技术。
+摘自 wiki： tiled rendering 是指将计算机图像在光学空间内分割成规则的网格，其中每一格都分开渲染的技术。
 相比于一次性渲染整帧图像的“立即模式”，这种技术可以降低内存和带宽的消耗，尤其适用于手持低功耗设备。
-tiled rendering 有时也被认为是 sort middle 架构的，因为它在图形管线的中间而不是尾部对几何对象进行排序。（摘自 wiki ）
+tiled rendering 有时也被认为是 sort middle 架构的，因为它在图形管线的中间而不是尾部对几何对象进行排序。
 </p>
 
 Vulkan solves these problems by being designed from scratch for modern graphics
@@ -63,13 +63,14 @@ can query for properties like VRAM size and device capabilities to select
 desired devices, for example to prefer using dedicated graphics cards.
 
 <p class="my-note">
-注： Vulkan 没有全局状态，每个应用的状态都存储在 VkInstance 对象中。
-创建 VkInstance 对象会初始化 Vulkan 库，并允许应用将关于它自己的信息传递至实现。（摘自 Vulkan 标准）
+摘自 Vulkan 标准： Vulkan 没有全局状态，每个应用的状态都存储在 VkInstance 对象中。
+创建 VkInstance 对象会初始化 Vulkan 库，并允许应用将关于它自己的信息传递至实现。
 </p>
 
 <p class="my-note">
-注： Vulkan 分离了物理设备和逻辑设备的概念，一个物理设备通常表示宿主机拥有的一个 Vulkan 的完整实现（不包括 instance-level 的功能），并且物理设备的数量是有限的。
-一个逻辑设备代表了一个 Vulkan 实现的一个实例，每个逻辑设备拥有独立于其他逻辑设备的状态和资源。（摘自 Vulkan 标准）
+摘自 Vulkan 标准： Vulkan 分离了物理设备和逻辑设备的概念，一个物理设备通常表示宿主机拥有的一个
+Vulkan 的完整实现（不包括 instance-level 的功能），并且物理设备的数量是有限的。
+一个逻辑设备代表了一个 Vulkan 实现的一个实例，每个逻辑设备拥有独立于其他逻辑设备的状态和资源。
 </p>
 
 ### Step 2 - Logical device and queue families
@@ -127,7 +128,7 @@ swap chain creation chapter.
 Some platforms allow you to render directly to a display without interacting with any window manager through the `VK_KHR_display` and `VK_KHR_display_swapchain` extensions. These allow you to create a surface that represents the entire screen and could be used to implement your own window manager, for example.
 
 <p class="my-note">
-注：在计算机图形学中，一个 swap chain 是一系列虚拟的 framebuffer 。
+摘自 wiki ：在计算机图形学中，一个 swap chain 是一系列虚拟的 framebuffer 。
 其被 GPU 和图形 API 用于帧数稳定、减少卡顿和若干其他用途。
 由于这些好处，许多图形 API 都要求使用 swap chain 。
 swap chain 通常存在于图形内存中，但也可以存在于系统内存中。
@@ -145,12 +146,14 @@ framebuffer for each of them and select the right one at draw time.
 <span class="my-note">（ 一个 Swap Chain 包含多个 Image ，每个 Image 有一个 Image View 和一个 Framebuffer ，在绘制时选择正确的 Image ）</span>
 
 <p class="my-note">
-注： Image 对象不直接被管线渲染器用于读写图像数据，反之， <i>image views</i> 表示图像“子资源”中的连续范围，并且包含额外的用于实现上述目标的元数据。
-Views <b>必须</b> 被创建在兼容的图像类型上，并且 <b>必须</b> 能够表示图像“子资源”的一个合法子集。（摘自 Vulkan 标准）
+摘自 Vulkan 标准： Image 对象不直接被管线渲染器用于读写图像数据，反之，
+<i>image views</i> 表示图像“子资源”中的连续范围，并且包含额外的用于实现上述目标的元数据。
+Views <b>必须</b> 被创建在兼容的图像类型上，并且 <b>必须</b> 能够表示图像“子资源”的一个合法子集。
 </p>
 
 <p class="my-note">
-注： Render Pass 和 <i>Framebuffer</i> 一起使用， Framebuffer 表示了给 Render Pass 实例使用的特定的 Memory Attachment 的集合。（摘自 Vulkan 标准）
+摘自 Vulkan 标准： Render Pass 和 <i>Framebuffer</i> 一起使用， Framebuffer 表示给
+Render Pass 实例使用的特定的 Memory Attachment 的集合。
 </p>
 
 ![](/images2/image_views_and_framebuffers.png)
@@ -177,11 +180,11 @@ driver also needs to know which render targets will be used in the pipeline,
 which we specify by referencing the render pass.
 
 <p class="my-note">
-注： Pipeline 可以是 Compute Pipeline 、 Ray Tracing Pipeline 和 Graphics Pipeline 。（摘自 Vulkan 标准）
+摘自 Vulkan 标准： Pipeline 可以是 Compute Pipeline 、 Ray Tracing Pipeline 和 Graphics Pipeline 。
 </p>
 
 <p class="my-note">
-注： Shader 模块包含 Shader 程序和一个或多个入口点，通过在 Pipeline
+摘自 Vulkan 标准： Shader 模块包含 Shader 程序和一个或多个入口点，通过在 Pipeline
 的创建过程中指定入口点，我们能够从 Shader 模块中选择 Shader 。
 Pipeline 中的 Stage <b>可以</b> 使用来自不同模块的 Shader 。
 定义 Shader 模块的 Shader 程序 <b>必须</b> 是 SPIR-V 格式的。
@@ -204,8 +207,7 @@ because large state changes like switching to a different graphics pipeline are
 made very explicit.
 
 <p class="my-note">
-注：个人理解 Render Pass 和 Pipeline 之间的关系是这样的：
-Render Pass 笼统描述渲染有几个阶段，每个阶段的输入输出是什么样的；
+个人理解： Render Pass 笼统描述渲染有几个阶段，每个阶段的输入输出是什么样的；
 Pipeline 描述每一步具体应该如何实现。
 </p>
 
@@ -229,9 +231,9 @@ and select the right one at draw time. The alternative would be to record the
 command buffer again every frame, which is not as efficient.
 
 <p class="my-note">
-注： Command Buffer 分为 Primary Command Buffer 和 Secondary Command Buffer 两种，
+摘自 Vulkan 标准： Command Buffer 分为 Primary Command Buffer 和 Secondary Command Buffer 两种，
 其中 Primary CB 被提交至队列，并且 <b>可以</b> 执行 Secondary CB ；
-Secondary CB 不被直接提交到队列，并且 <b>可以</b> 被 Primary CB 执行。（摘自 Vulkan 标准）
+Secondary CB 不被直接提交到队列，并且 <b>可以</b> 被 Primary CB 执行。
 </p>
 
 ### Step 8 - Main loop

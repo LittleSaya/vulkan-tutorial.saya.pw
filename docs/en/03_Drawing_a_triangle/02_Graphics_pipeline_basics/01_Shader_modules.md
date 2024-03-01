@@ -463,7 +463,7 @@ That's all there is to describing the programmable stages of the pipeline. In
 the next chapter we'll look at the fixed-function stages.
 
 <p class="my-note">
-注： VkPipelineShaderStageCreateInfo 除了上述属性以外，还有下列属性：
+摘自 Vulkan 标准： VkPipelineShaderStageCreateInfo 除了上述属性以外，还有下列属性：
 <ul class="my-note">
     <li>flags ：一些关于 subgroup size 的设置</li>
 </ul>
