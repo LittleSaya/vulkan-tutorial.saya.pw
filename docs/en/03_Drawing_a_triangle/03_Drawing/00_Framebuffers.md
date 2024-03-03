@@ -79,7 +79,7 @@ which roughly means that they use the same number and type of attachments.
 
 The `attachmentCount` and `pAttachments` parameters specify the `VkImageView`
 objects that should be bound to the respective attachment descriptions in
-the render pass `pAttachment` array.
+the render pass `pAttachments` array.
 
 The `width` and `height` parameters are self-explanatory and `layers` refers to
 the number of layers in image arrays. Our swap chain images are single images,

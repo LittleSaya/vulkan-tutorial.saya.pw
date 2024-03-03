@@ -1,0 +1,43 @@
+<mxfile host="Electron" modified="2024-03-03T12:47:15.943Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="Tba9M5T08BvmA5CpeJ_2" version="23.1.5" type="device">
+  <diagram name="第 1 页" id="pMj_DBe2h2y4TKAVPuIv">
+    <mxGraphModel dx="988" dy="574" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="D-WpxhoJZHUKHinEnFPa-45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="D-WpxhoJZHUKHinEnFPa-33" target="D-WpxhoJZHUKHinEnFPa-41">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="D-WpxhoJZHUKHinEnFPa-33" value="create&lt;br&gt;surface" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="480" y="120" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="D-WpxhoJZHUKHinEnFPa-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="D-WpxhoJZHUKHinEnFPa-35" target="D-WpxhoJZHUKHinEnFPa-33">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="D-WpxhoJZHUKHinEnFPa-35" value="VkInstance: instance" style="rounded=0;whiteSpace=wrap;html=1;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="360" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="D-WpxhoJZHUKHinEnFPa-36" value="char[][]" style="rounded=0;whiteSpace=wrap;html=1;fontSize=16;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="D-WpxhoJZHUKHinEnFPa-37" value="enabled extensions" style="rounded=0;whiteSpace=wrap;html=1;fontSize=16;spacingLeft=6;align=left;" vertex="1" parent="1">
+          <mxGeometry x="200" y="80" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="D-WpxhoJZHUKHinEnFPa-38" value="char[][]" style="rounded=0;whiteSpace=wrap;html=1;fontSize=16;spacingLeft=6;align=left;" vertex="1" parent="1">
+          <mxGeometry x="40" y="110" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="D-WpxhoJZHUKHinEnFPa-39" value="enabled layers" style="rounded=0;whiteSpace=wrap;html=1;fontSize=16;spacingLeft=6;align=left;" vertex="1" parent="1">
+          <mxGeometry x="200" y="110" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="D-WpxhoJZHUKHinEnFPa-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="D-WpxhoJZHUKHinEnFPa-40" target="D-WpxhoJZHUKHinEnFPa-33">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="D-WpxhoJZHUKHinEnFPa-40" value="GLFWwindow: window" style="rounded=0;whiteSpace=wrap;html=1;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry x="40" y="200" width="360" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="D-WpxhoJZHUKHinEnFPa-41" value="VkSurfaceKHR: surface" style="rounded=0;whiteSpace=wrap;html=1;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry x="640" y="140" width="360" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

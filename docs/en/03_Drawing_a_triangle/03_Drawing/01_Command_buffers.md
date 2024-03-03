@@ -89,6 +89,14 @@ void cleanup() {
 }
 ```
 
+<p class="my-note">
+摘自 Vulkan 标准： Command Pool 是一个不透明的对象， Command Buffer 使用的内存从 Command Pool 中分配
+，同时 Command Pool 允许 Vulkan 实现在多个 Command Buffer 之间均摊资源创建的成本。
+Command Pool 是外部同步的，这意味着 Command Pool <b>必须</b> 不能在多个线程中被同时使用，
+包括在任何从这个 Command Pool 中分配的 Command Buffer 中记录指令，以及 Command Buffer 和
+Command Pool 自身的分配、释放及重置。
+</p>
+
 ## Command buffer allocation
 
 We can now start allocating command buffers.
@@ -244,6 +252,11 @@ The last two parameters define the clear values to use for
 `VK_ATTACHMENT_LOAD_OP_CLEAR`, which we used as load operation for the color
 attachment. I've defined the clear color to simply be black with 100% opacity.
 
+<p class="my-note">
+注：因为可能有多个 Attachment ，每一个 Attachment 都可能 Clear ，每一个 Clear Color
+都可能不同，因此 pClearValues 是一个数组。
+</p>
+
 ```c++
 vkCmdBeginRenderPass(commandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 ```
@@ -304,7 +317,7 @@ Now we are ready to issue the draw command for the triangle:
 vkCmdDraw(commandBuffer, 3, 1, 0, 0);
 ```
 
-The actual `vkCmdDraw` function is a bit anticlimactic, but it's so simple
+The actual `vkCmdDraw` function is a bit anticlimactic(突兀的), but it's so simple
 because of all the information we specified in advance. It has the following
 parameters, aside from the command buffer:
 

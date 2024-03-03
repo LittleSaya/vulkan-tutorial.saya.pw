@@ -1,4 +1,3 @@
-
 This is the chapter where everything is going to come together. We're going to
 write the `drawFrame` function that will be called from the main loop to put the
 triangle on the screen. Let's start by creating the function and call it from
@@ -99,6 +98,18 @@ immediately - the waiting only happens on the GPU. The CPU continues running
 without blocking. To make the CPU wait, we need a different synchronization
 primitive, which we will now describe.
 
+<p class="my-note">
+摘自 Vulkan 标准：信号量是一个同步原语， <b>可以</b> 被用于在队列操作之间或者在队列操作和主机之间插入依赖关系。
+二值信号量有两个状态：已发出、未发出。时间线信号量有一个严格单调递增的 64 位无符号整数负载，这种信号量根据一个特定的参考值发出信号。
+一个信号量 <b>可以</b> 在一个队列操作执行完毕之后发出信号，同时一个队列操作 <b>可以</b> 在执行之前等待一个信号量的信号。
+通过使用 vkSignalSemaphore ，一个时间线信号量 <b>可以</b> 额外地从主机发出信号，主机也 <b>可以</b> 通过 vkWaitSemaphore 等待一个时间线信号量（等待信号量增长到某个特定的值）。
+</p>
+
+<p class="my-note">
+接上一段：一个信号量的内部数据 <b>可能</b> 包含对任何资源的引用，以及与 <i>在那个信号量上执行的信号或非信号操作</i> 关联的等待中的工作（ pending work ）。
+这些东西汇总在一起被称作信号量的“负载”。“负载”可以被导入和导出，这间接地允许了应用跨进程或跨 API 边界在两个或多个信号量以及其他同步原语之间分享信号量状态。
+</p>
+
 ### Fences
 
 A fence has a similar purpose, in that it is used to synchronize execution, but
@@ -150,6 +161,17 @@ are used to order work on the GPU without the host being involved.
 
 In summary, semaphores are used to specify the execution order of operations on
 the GPU while fences are used to keep the CPU and GPU in sync with each-other.
+
+<p class="my-note">
+摘自 Vulkan 标准： Fence 是一个用于在主机中插入对队列的依赖的同步原语。
+Fence 有两个状态：信号已发出、信号未发出。一个 Fence <b>可以</b> 作为队列提交指令的一部分发出信号。
+Fence <b>可以</b> 通过 vkResetFences 在主机上重置， <b>可以</b> 通过 vkWaitForFences 在主机上等待，
+<b>可以</b> 通过 vkGetFenceStatus 查询当前的状态。（ Fence 不知道如何翻译，似乎不像 Semaphore 那样有标准的翻译）
+</p>
+
+<p class="my-note">
+接上段： Fence 也像 Semaphore 一样有“负载”，并且这些“负载”也能导入导出以间接支持信号量状态的分享。
+</p>
 
 ### What to choose?
 
@@ -269,20 +291,24 @@ the case of a single one it doesn't matter. This function also has a timeout
 parameter that we set to the maximum value of a 64 bit unsigned integer,
 `UINT64_MAX`, which effectively disables the timeout.
 
+<p class="my-note">
+注：超时会返回 VK_TIMEOUT 。
+<p>
+
 After waiting, we need to manually reset the fence to the unsignaled state with
 the `vkResetFences` call:
 ```c++
     vkResetFences(device, 1, &inFlightFence);
 ```
 
-Before we can proceed, there is a slight hiccup in our design. On the first
+Before we can proceed, there is a slight hiccup(打嗝) in our design. On the first
 frame we call `drawFrame()`, which immediately waits on `inFlightFence` to
 be signaled. `inFlightFence` is only signaled after a frame has finished
 rendering, yet since this is the first frame, there are no previous frames in
 which to signal the fence! Thus `vkWaitForFences()` blocks indefinitely,
 waiting on something which will never happen.
 
-Of the many solutions to this dilemma, there is a clever workaround built into
+Of the many solutions to this dilemma(窘境), there is a clever workaround built into
 the API. Create the fence in the signaled state, so that the first call to
 `vkWaitForFences()` returns immediately since the fence is already signaled.
 
@@ -324,7 +350,7 @@ timeout.
 The next two parameters specify synchronization objects that are to be signaled
 when the presentation engine is finished using the image. That's the point in
 time where we can start drawing to it. It is possible to specify a semaphore,
-fence or both. We're going to use our `imageAvailableSemaphore` for that purpose
+fence or both （第一个参数是一个 Semaphore ，第二个参数是一个 Fence ） . We're going to use our `imageAvailableSemaphore` for that purpose
 here.
 
 The last parameter specifies a variable to output the index of the swap chain
@@ -369,7 +395,7 @@ submitInfo.pWaitDstStageMask = waitStages;
 ```
 
 The first three parameters specify which semaphores to wait on before execution
-begins and in which stage(s) of the pipeline to wait. We want to wait with
+begins and in which stage(s) of the pipeline to wait （在 Pipeline 的哪一个阶段等待哪个 Semaphore ）. We want to wait with
 writing colors to the image until it's available, so we're specifying the stage
 of the graphics pipeline that writes to the color attachment. That means that
 theoretically the implementation can already start executing our vertex shader
@@ -428,6 +454,10 @@ render pass wait for the `VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT` stage.
 I've decided to go with the second option here, because it's a good excuse to
 have a look at subpass dependencies and how they work.
 
+![](/images2/subpass_dependencies_1.png)
+
+![](/images2/subpass_dependencies_2.png)
+
 Subpass dependencies are specified in `VkSubpassDependency` structs. Go to the
 `createRenderPass` function and add one:
 
@@ -472,6 +502,17 @@ renderPassInfo.pDependencies = &dependency;
 
 The `VkRenderPassCreateInfo` struct has two fields to specify an array of
 dependencies.
+
+<p class="my-note">
+注： srcStageMask 表示这个 Transition 等待的阶段， srcAccessMask 表示这个 Transition 在指定阶段等待的操作；
+dstStageMask 表示需要等待这个 Transition 完成的阶段， dstAccessMask 表示在指定阶段需要等待这个 Transition 完成后才能进行的操作。
+在这篇教程中， subpass 开始的 Transition 需要等待成功获取图像后才能进行，而具体的渲染操作需要等待 subpass 开始的 Transition 完成之后才能进行。
+</p>
+
+<p class="my-note">
+记得创建 Render Pass 时为 subpass 设置的 pColorAttachments 吗？ color attachment reference 和 color attachment 定义了 initialLayout 、 layout 和 finalLayout ，
+subpass 开始的 Transition 执行的应该是从 initialLayout （ VK_IMAGE_LAYOUT_UNDEFINED ）到 layout （ VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL ）的转换。
+</p>
 
 ## Presentation
 
@@ -571,6 +612,8 @@ building on top of that knowledge to extend the functionality of the program
 from this point on.
 
 The next chapter will expand the render loop to handle multiple frames in flight.
+
+![](/images2/execution_flow.png)
 
 [C++ code](/code/15_hello_triangle.cpp) /
 [Vertex shader](/code/09_shader_base.vert) /
